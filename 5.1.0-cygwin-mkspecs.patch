@@ -103,6 +103,15 @@
              deppath.name = PATH
          } else:contains(QMAKE_HOST.os, Linux|FreeBSD) {
              deppath.name = LD_LIBRARY_PATH
+--- origsrc/qtbase-opensource-src-5.1.1/mkspecs/features/qt_tool.prf	2013-08-25 13:03:47.000000000 -0500
++++ src/qtbase-opensource-src-5.1.1/mkspecs/features/qt_tool.prf	2014-01-02 23:48:17.545298900 -0600
+@@ -43,3 +43,6 @@ CONFIG += console
+         cache(QT_TOOL.$${MODULE}.$$var, transient)
+ 
+ }
++
++contains(QT_CONFIG, system-zlib): LIBS_PRIVATE += -lz
++host_build: LIBS += -L$$[QT_HOST_LIBS]
 --- origsrc/qtbase-opensource-src-5.1.0/src/tools/bootstrap/bootstrap.pro	2013-07-02 02:10:00.000000000 -0500
 +++ src/qtbase-opensource-src-5.1.0/src/tools/bootstrap/bootstrap.pro	2013-08-14 14:02:35.627856500 -0500
 @@ -5,7 +5,7 @@ QT =
