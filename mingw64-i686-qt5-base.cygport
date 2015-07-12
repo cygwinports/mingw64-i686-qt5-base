@@ -3,8 +3,8 @@ CROSS_QMAKESPEC="win32-g++"
 inherit cross
 
 NAME="mingw64-i686-qt5-base"
-VERSION=5.3.2
-RELEASE=2
+VERSION=5.4.2
+RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Qt core framework for Win32 toolchain"
 DESCRIPTION="Qt is a cross-platform application framework for desktop and
@@ -30,6 +30,8 @@ PATCH_URI="
 	fedora/qt5-qtbase-fix-linking-against-static-pcre.patch
 	fedora/qt5-use-system-zlib-in-host-libs.patch
 	fedora/qt5-rename-qtmain-to-qt5main.patch
+	fedora/qt5-fix-static-dbus-detection.patch
+	fedora/qt5-fix-static-harfbuzz-detection.patch
 	5.3.2-cygwin-mkspecs.patch
 	5.3.2-cygwin-qmake.patch
 	5.3.2-cygwin-unix.patch
@@ -102,7 +104,7 @@ src_compile() {
 		-plugindir ${CROSS_LIBDIR}/qt5/plugins \
 		-importdir ${CROSS_LIBDIR}/qt5/imports \
 		-qmldir ${CROSS_LIBDIR}/qt5/qml \
-		-libexecdir ${CROSS_LIBDIR}/qt5/libexec \
+		-libexecdir ${CROSS_BINDIR} \
 		-datadir ${CROSS_DATADIR}/qt5 \
 		-docdir ${CROSS_DATADIR}/qt5/doc \
 		-sysconfdir ${CROSS_PREFIX}/etc/qt5 \
@@ -118,10 +120,10 @@ src_compile() {
 		-release -static \
 		-no-rpath -no-reduce-exports -no-reduce-relocations \
 		-no-sql-mysql \
-		-plugin-sql-odbc \
-		-plugin-sql-psql \
-		-plugin-sql-sqlite -system-sqlite \
-		-plugin-sql-tds \
+		-qt-sql-odbc \
+		-no-sql-psql \
+		-qt-sql-sqlite -system-sqlite \
+		-no-sql-tds \
 		-no-sql-db2 -no-sql-ibase -no-sql-oci -no-sql-sqlite2 \
 		-system-zlib -system-libpng -system-libjpeg -dbus-linked \
 		-openssl-linked -system-pcre \
