@@ -45,6 +45,9 @@ REQUIRES="libgcc1 libstdc++6 zlib0 zlib-devel"
 # therefore, these need to be determined by mkspecs
 unset CC CXX
 
+CFLAGS+=" -fno-keep-inline-dllexport"
+CXXFLAGS+=" -fno-keep-inline-dllexport"
+
 src_compile() {
 	mkdir -p ${B}/shared
 	cd ${B}/shared
@@ -173,7 +176,7 @@ src_install() {
 	sed -i -e 's| -fdebug-prefix[^ ]*||g' qmodule.pri
 	popd
 
-	sed -i -e '/^Libs\.private/s/-luuid/-Wl,&/g' ${D}${TOOLCHAIN_LIBDIR}/pkgconfig/*.pc
+	sed -i -e '/^Libs\.private/s/-luuid/-Wl,&/g' -e 's/-lqtharfbuzzng//g' ${D}${TOOLCHAIN_LIBDIR}/pkgconfig/*.pc
 
 	dodoc ${S}/LGPL_EXCEPTION.txt ${S}/LICENSE.{FDL,*GPL}
 }
