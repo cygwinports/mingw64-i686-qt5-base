@@ -3,7 +3,7 @@ XQMAKESPEC="win32-g++"
 inherit toolchain
 
 NAME="mingw64-i686-qt5-base"
-VERSION=5.9.3
+VERSION=5.9.4
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Qt core framework for Win32 toolchain"
